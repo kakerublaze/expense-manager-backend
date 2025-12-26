@@ -1,20 +1,18 @@
 import dotenv from "dotenv";
 import express from "express";
-import connectDB from "./src/config/db";
+import { connectDB } from "./src/config/db.js";
+import authRoutes from "./src/routes/auth.routes.js";
+import expenseRoutes from "./src/routes/expense.routes.js";
 
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-app.use(json());
+app.use(express.json());
 
 
 // --> API's Initialization
-
-import authRoutes from "./src/routes/auth.routes";
-import expenseRoutes from "./src/routes/expense.routes";
-
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 

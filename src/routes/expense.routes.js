@@ -1,5 +1,5 @@
-import { Router } from "express";
-const router = Router();
+import express from "express";
+const router = express.Router();
 
 router.post("/", (req, res) => {
   res.send("Add expense");

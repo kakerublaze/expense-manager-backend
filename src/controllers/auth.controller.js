@@ -1,7 +1,7 @@
 import { genSalt, hash } from "bcrypt";
-import { create, findOne } from "../models/User.js";
+import User from "../models/User.js";
 
-const registerUser = async (req, res) => {
+export async function registerUser(req, res) {
   try {
     const { name, email, password } = req.body;
 
@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
     }
 
     // 2. Check if user already exists
-    const existingUser = await findOne({ email });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
     const hashedPassword = await hash(password, salt);
 
     // 4. Create user
-    const user = await create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword
@@ -40,6 +40,4 @@ const registerUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-export default { registerUser };
+}
