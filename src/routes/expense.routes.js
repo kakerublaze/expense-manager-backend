@@ -1,5 +1,5 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 router.post("/", (req, res) => {
   res.send("Add expense");
@@ -13,4 +13,4 @@ router.delete("/:id", (req, res) => {
   res.send("Delete expense");
 });
 
-module.exports = router;
+export default router;

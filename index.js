@@ -1,24 +1,29 @@
-require("dotenv").config();
-const express = require("express");
+import dotenv from "dotenv";
+import express from "express";
+import connectDB from "./src/config/db";
+
+
+dotenv.config();
 
 const app = express();
-app.use(express.json());
+const PORT = process.env.PORT || 5000;
+app.use(json());
 
 
 // --> API's Initialization
 
-const authRoutes = require("./src/routes/auth.routes");
-const expenseRoutes = require("./src/routes/expense.routes");
+import authRoutes from "./src/routes/auth.routes";
+import expenseRoutes from "./src/routes/expense.routes";
 
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 
+connectDB();
 
-app.get("/health", (req, res) => {
+app.get("/health", (_, res) => {
   res.json({ status: "OK", message: "Server running" });
 });
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
